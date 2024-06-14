@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+
+<html lang="ar">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>فحص يوزرات تلمبر</title>
+
+    <style>
+
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+
+        
+
+        body {
+
+            font-family: 'Cairo', sans-serif;
+
+            text-align: center;
+
+            background-image: url('https://i.pinimg.com/564x/7a/73/11/7a731196fb74e4bcfbb19540707f8747.jpg');
+
+            background-size: cover;
+
+            background-position: center;
+
+            background-color: #f0f0f0;
+
+            margin: 0;
+
+            padding: 0;
+
+            overflow: hidden;
+
+            animation: backgroundAnimation 10s linear infinite;
+
+        }
+
+
+
+        h1 {
+
+            color: #333;
+
+            background-color: rgba(255, 255, 255, 0.8);
+
+            padding: 20px;
+
+            margin: 0;
+
+            animation: fadeIn 2s;
+
+        }
+
+
+
+        .container {
+
+            margin-top: 20px;
+
+            background-color: rgba(255, 255, 255, 0.8);
+
+            padding: 20px;
+
+            border-radius: 10px;
+
+            display: inline-block;
+
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+
+            animation: fadeIn 2s;
+
+            transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+
+            perspective: 1000px;
+
+        }
+
+
+
+        .container:hover {
+
+            transform: translateY(-5px) rotateY(10deg);
+
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+
+            filter: blur(1px);
+
+        }
+
+
+
+        button {
+
+            padding: 10px 20px;
+
+            background-color: #4caf50;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 5px;
+
+            cursor: pointer;
+
+            transition: background-color 0.3s ease, transform 0.3s ease;
+
+            font-size: 16px;
+
+            animation: fadeIn 2s;
+
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+        }
+
+
+
+        button:hover {
+
+            background-color: #45a049;
+
+            transform: scale(1.05);
+
+            box-shadow: 0 0 20px #45a049;
+
+        }
+
+
+
+        button:active {
+
+            background-color: #45a049;
+
+            transform: scale(0.95);
+
+            box-shadow: 0 0 10px #45a049;
+
+        }
+
+
+
+        button:focus {
+
+            outline: none;
+
+            animation: pulse 1s infinite;
+
+        }
+
+
+
+        @keyframes pulse {
+
+            0% {
+
+                box-shadow: 0 0 10px #45a049, 0 0 20px #45a049;
+
+            }
+
+            50% {
+
+                box-shadow: 0 0 20px #45a049, 0 0 40px #45a049;
+
+            }
+
+            100% {
+
+                box-shadow: 0 0 10px #45a049, 0 0 20px #45a049;
+
+            }
+
+        }
+
+
+
+        #result {
+
+            margin-top: 20px;
+
+            text-align: center;
+
+            max-width: 800px;
+
+            margin: 20px auto;
+
+            background-color: rgba(255, 255, 255, 0.8);
+
+            padding: 20px;
+
+            border-radius: 10px;
+
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+
+            animation: fadeIn 2s;
+
+        }
+
+
+
+        .result-item {
+
+            background-color: #fff;
+
+            padding: 15px;
+
+            border-radius: 5px;
+
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+            margin-bottom: 15px;
+
+            text-align: left;
+
+            transition: transform 0.3s ease;
+
+            animation: fadeIn 2s;
+
+        }
+
+
+
+        .result-item.available {
+
+            border-left: 5px solid #4caf50;
+
+        }
+
+
+
+        .result-item.not-available {
+
+            border-left: 5px solid #f44336;
+
+        }
+
+
+
+        .result-item.rate-limited {
+
+            border-left: 5px solid #ff9800;
+
+        }
+
+
+
+        .result-item h3 {
+
+            color: #333;
+
+            margin-bottom: 5px;
+
+        }
+
+
+
+        @keyframes fadeIn {
+
+            from {
+
+                opacity: 0;
+
+            }
+
+            to {
+
+                opacity: 1;
+
+            }
+
+        }
+
+
+
+        @keyframes backgroundAnimation {
+
+            0% { background-position: 0 0; }
+
+            100% { background-position: 100% 100%; }
+
+        }
+
+
+
+        footer {
+
+            margin-top: 20px;
+
+            padding: 10px;
+
+            color: #4caf50;
+
+            font-weight: bold;
+
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+
+            animation: fadeIn 2s, glow 1.5s infinite;
+
+        }
+
+
+
+        @keyframes glow {
+
+            0% { text-shadow: 0 0 5px #4caf50, 0 0 10px #4caf50, 0 0 15px #4caf50; }
+
+            50% { text-shadow: 0 0 10px #4caf50, 0 0 20px #4caf50, 0 0 25px #4caf50; }
+
+            100% { text-shadow: 0 0 5px #4caf50, 0 0 10px #4caf50, 0 0 15px #4caf50; }
+
+        }
+
+
+
+        .modal {
+
+            display: none;
+
+            position: fixed;
+
+            z-index: 1;
+
+            left: 0;
+
+            top: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            overflow: auto;
+
+            background-color: rgb(0,0,0);
+
+            background-color: rgba(0,0,0,0.4);
+
+            padding-top: 60px;
+
+        }
+
+
+
+        .modal-content {
+
+            background-color: #fefefe;
+
+            margin: 5% auto;
+
+            padding: 20px;
+
+            border: 1px solid #888;
+
+            width: 80%;
+
+            transform-style: preserve-3d;
+
+            transform: translateZ(0);
+
+            transition: transform 0.3s;
+
+        }
+
+
+
+        .modal-content:hover {
+
+            transform: rotateY(15deg) translateZ(50px);
+
+        }
+
+
+
+        .close {
+
+            color: #aaa;
+
+            float: right;
+
+            font-size: 28px;
+
+            font-weight: bold;
+
+        }
+
+
+
+        .close:hover,
+
+        .close:focus {
+
+            color: black;
+
+            text-decoration: none;
+
+            cursor: pointer;
+
+        }
+
+
+
+        .results-section {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-top: 20px;
+
+        }
+
+
+
+        .results-column {
+
+            width: 45%;
+
+            background-color: rgba(255, 255, 255, 0.8);
+
+            padding: 20px;
+
+            border-radius: 10px;
+
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+
+            animation: fadeIn 2s;
+
+        }
+
+
+
+        .results-column h2 {
+
+            margin-top: 0;
+
+        }
+
+    </style>
+
+    <script>
+
+        function checkUsername() {
+
+            let username = document.getElementById('username').value;
+
+            fetch('/check_username', {
+
+                method: 'POST',
+
+                headers: {
+
+                    'Content-Type': 'application/json',
+
+                },
+
+                body: JSON.stringify({ username: username }),
+
+            })
+
+            .then(response => response.json())
+
+            .then(data => {
+
+                let resultDiv = document.getElementById('result');
+
+                let resultItem = document.createElement('div');
+
+                resultItem.classList.add('result-item');
+
+                
+
+                if (data.status === 'available') {
+
+                    resultItem.classList.add('available');
+
+                    resultItem.innerHTML = `<h3>اسم المستخدم متاح</h3><p>اسم المستخدم: ${data.username}</p>`;
+
+                } else if (data.status === 'not_available') {
+
+                    resultItem.classList.add('not-available');
+
+                    resultItem.innerHTML = `<h3>اسم المستخدم غير متاح</h3><p>اسم المستخدم: ${data.username}</p>`;
+
+                } else if (data.status === 'rate_limited') {
+
+                    resultItem.classList.add('rate-limited');
+
+                    resultItem.innerHTML = `<h3>تم تجاوز الحد المسموح</h3><p>يرجى المحاولة لاحقاً.</p>`;
+
+                } else {
+
+                    resultItem.innerHTML = `<h3>خطأ</h3><p>${data.response}</p>`;
+
+                }
+
+
+
+                resultDiv.appendChild(resultItem);
+
+            })
+
+            .catch(error => {
+
+                console.error('Error:', error);
+
+            });
+
+        }
+
+
+
+        function startBatchCheck() {
+
+            fetch('/start_batch_check', {
+
+                method: 'POST',
+
+                headers: {
+
+                    'Content-Type': 'application/json',
+
+                },
+
+            })
+
+            .then(response => response.json())
+
+            .then(data => {
+
+                let availableUsernamesDiv = document.getElementById('availableUsernames');
+
+                let notAvailableUsernamesDiv = document.getElementById('notAvailableUsernames');
+
+                availableUsernamesDiv.innerHTML = ''; // Clear previous results
+
+                notAvailableUsernamesDiv.innerHTML = ''; // Clear previous results
+
+                
+
+                data.results.forEach(result => {
+
+                    let resultItem = document.createElement('div');
+
+                    resultItem.classList.add('result-item');
+
+                    
+
+                    if (result.status === 'available') {
+
+                        resultItem.classList.add('available');
+
+                        resultItem.innerHTML = `<h3>اسم المستخدم متاح</h3><p>اسم المستخدم: ${result.username}</p>`;
+
+                        availableUsernamesDiv.appendChild(resultItem);
+
+                    } else if (result.status === 'not_available') {
+
+                        resultItem.classList.add('not-available');
+
+                        resultItem.innerHTML = `<h3>اسم المستخدم غير متاح</h3><p>اسم المستخدم: ${result.username}</p>`;
+
+                        notAvailableUsernamesDiv.appendChild(resultItem);
+
+                    }
+
+                });
+
+
+
+                let modal = document.getElementById('availableUsernamesModal');
+
+                modal.style.display = 'block';
+
+            })
+
+            .catch(error => {
+
+                console.error('Error:', error);
+
+            });
+
+        }
+
+
+
+        function closeModal() {
+
+            let modal = document.getElementById('availableUsernamesModal');
+
+            modal.style.display = 'none';
+
+        }
+
+
+
+        window.onclick = function(event) {
+
+            let modal = document.getElementById('availableUsernamesModal');
+
+            if (event.target == modal) {
+
+                modal.style.display = 'none';
+
+            }
+
+        }
+
+    </script>
+
+</head>
+
+<body>
+
+    <h1>تحقق من توفر اسم المستخدم</h1>
+
+    <div class="container">
+
+        <input type="text" id="username" placeholder="ادخل اسم المستخدم" style="padding: 10px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc; margin-right: 10px;">
+
+        <button onclick="checkUsername()">تحقق من اسم المستخدم</button>
+
+        <button onclick="startBatchCheck()">ابدأ فحص الأسماء العشوائية</button>
+
+    </div>
+
+    <div id="result"></div>
+
+    <footer>
+
+        <p>حقوق النشر © 2024 <a href="https://t.me/Q_B_H" style="color: #4caf50; text-decoration: none;">@Q_B_H</a></p>
+
+    </footer>
+
+
+
+    <div id="availableUsernamesModal" class="modal">
+
+        <div class="modal-content">
+
+            <span class="close" onclick="closeModal()">&times;</span>
+
+            <div class="results-section">
+
+                <div class="results-column" id="availableUsernames">
+
+                    <h2>الأسماء المتاحة</h2>
+
+                </div>
+
+                <div class="results-column" id="notAvailableUsernames">
+
+                    <h2>الأسماء غير المتاحة</h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+      </html>
